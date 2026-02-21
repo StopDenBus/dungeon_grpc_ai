@@ -1,0 +1,217 @@
+syntax = "proto3";
+
+package dungeon;
+
+// Service Definition für Multi-User Dungeon
+service DungeonService {
+    // Spieler Management
+    rpc RegisterPlayer(RegisterPlayerRequest) returns (RegisterPlayerResponse);
+    rpc UnregisterPlayer(UnregisterPlayerRequest) returns (UnregisterPlayerResponse);
+    rpc MovePlayer(MovePlayerRequest) returns (MovePlayerResponse);
+    rpc GetPlayerInfo(GetPlayerInfoRequest) returns (PlayerInfo);
+
+    // Raum Information
+    rpc GetRoomInfo(GetRoomInfoRequest) returns (RoomInfo);
+    rpc LookAround(LookAroundRequest) returns (LookAroundResponse);
+
+    // Interaktionen
+    rpc TakeItem(TakeItemRequest) returns (TakeItemResponse);
+    rpc DropItem(DropItemRequest) returns (DropItemResponse);
+    rpc TalkToNPC(TalkToNPCRequest) returns (TalkToNPCResponse);
+    rpc AttackNPC(AttackNPCRequest) returns (AttackNPCResponse);
+
+    // Messaging
+    rpc SendDirectMessage(SendDirectMessageRequest) returns (SendMessageResponse);
+    rpc SendRoomMessage(SendRoomMessageRequest) returns (SendMessageResponse);
+    rpc SendBroadcastMessage(SendBroadcastMessageRequest) returns (SendMessageResponse);
+    rpc GetOnlinePlayers(GetOnlinePlayersRequest) returns (GetOnlinePlayersResponse);
+
+    // Events Stream (Server-to-Client)
+    rpc StreamEvents(StreamEventsRequest) returns (stream GameEvent);
+}
+
+// Messages
+message RegisterPlayerRequest {
+    string player_name = 1;
+}
+
+message RegisterPlayerResponse {
+    string player_id = 1;
+    string message = 2;
+    bool success = 3;
+}
+
+message UnregisterPlayerRequest {
+    string player_id = 1;
+}
+
+message UnregisterPlayerResponse {
+    bool success = 1;
+    string message = 2;
+}
+
+message MovePlayerRequest {
+    string player_id = 1;
+    string direction = 2;  // north, south, east, west
+}
+
+message MovePlayerResponse {
+    bool success = 1;
+    string message = 2;
+    RoomInfo new_room = 3;
+}
+
+message GetPlayerInfoRequest {
+    string player_id = 1;
+}
+
+message PlayerInfo {
+    string player_id = 1;
+    string name = 2;
+    string current_room_id = 3;
+    int32 health = 4;
+    repeated Item inventory = 5;
+}
+
+message GetRoomInfoRequest {
+    string player_id = 1;
+}
+
+message RoomInfo {
+    string room_id = 1;
+    string name = 2;
+    string description = 3;
+    repeated string exits = 4;  // Verfügbare Richtungen
+    repeated Item items = 5;
+    repeated NPC npcs = 6;
+    repeated string players = 7;  // Namen anderer Spieler
+}
+
+message LookAroundRequest {
+    string player_id = 1;
+}
+
+message LookAroundResponse {
+    RoomInfo room = 1;
+}
+
+message TakeItemRequest {
+    string player_id = 1;
+    string item_id = 2;
+}
+
+message TakeItemResponse {
+    bool success = 1;
+    string message = 2;
+}
+
+message DropItemRequest {
+    string player_id = 1;
+    string item_id = 2;
+}
+
+message DropItemResponse {
+    bool success = 1;
+    string message = 2;
+}
+
+message TalkToNPCRequest {
+    string player_id = 1;
+    string npc_id = 2;
+}
+
+message TalkToNPCResponse {
+    bool success = 1;
+    string message = 2;
+    string npc_response = 3;
+}
+
+message AttackNPCRequest {
+    string player_id = 1;
+    string npc_id = 2;
+}
+
+message AttackNPCResponse {
+    bool success = 1;
+    string message = 2;
+    int32 damage_dealt = 3;
+    int32 npc_health_remaining = 4;
+}
+
+message StreamEventsRequest {
+    string player_id = 1;
+}
+
+message GameEvent {
+    enum EventType {
+        PLAYER_JOINED = 0;
+        PLAYER_LEFT = 1;
+        PLAYER_MOVED = 2;
+        ITEM_TAKEN = 3;
+        ITEM_DROPPED = 4;
+        NPC_ATTACKED = 5;
+        NPC_DIED = 6;
+        DIRECT_MESSAGE = 7;
+        ROOM_MESSAGE = 8;
+        BROADCAST_MESSAGE = 9;
+    }
+
+    EventType event_type = 1;
+    string message = 2;
+    string room_id = 3;
+    int64 timestamp = 4;
+    string sender_name = 5;
+}
+
+// Messaging
+message SendDirectMessageRequest {
+    string sender_id = 1;
+    string recipient_name = 2;
+    string message = 3;
+}
+
+message SendRoomMessageRequest {
+    string sender_id = 1;
+    string message = 2;
+}
+
+message SendBroadcastMessageRequest {
+    string sender_id = 1;
+    string message = 2;
+}
+
+message SendMessageResponse {
+    bool success = 1;
+    string message = 2;
+}
+
+message GetOnlinePlayersRequest {
+    string player_id = 1;
+}
+
+message GetOnlinePlayersResponse {
+    repeated PlayerStatus players = 1;
+}
+
+message PlayerStatus {
+    string name = 1;
+    string room_name = 2;
+    bool is_online = 3;
+}
+
+// Data Models
+message Item {
+    string item_id = 1;
+    string name = 2;
+    string description = 3;
+    int32 value = 4;
+}
+
+message NPC {
+    string npc_id = 1;
+    string name = 2;
+    string description = 3;
+    int32 health = 4;
+    bool is_hostile = 5;
+    string dialogue = 6;
+}
