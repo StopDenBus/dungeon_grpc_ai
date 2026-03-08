@@ -2,33 +2,31 @@
 name = "dungeon"
 version = "0.1.0"
 description = ""
-authors = [{ name = "Gusek, Michael", email = "michael.gusek@interhyp.de" }]
-requires-python = ">=3.13"
-readme = "README.md"
-classifiers = [
-    "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.13",
-    "Programming Language :: Python :: 3.14",
+authors = [
+    {name = "Gusek, Michael",email = "michael.gusek@interhyp.de"}
 ]
+readme = "README.md"
+requires-python = ">=3.13,<4.0"
 dependencies = [
     "grpcio>=1.60.0",
     "grpcio-tools>=1.60.0",
     "protobuf>=4.25.0",
+    "prompt-toolkit>=3.0.0",
+    "pyqt6 (>=6.10.2,<7.0.0)",
+    "textual>=0.47.0",
+    "bcrypt (>=5.0.0,<6.0.0)",
 ]
+
+[tool.poetry]
+packages = [{include = "dungeon", from = "src"}]
 
 [project.scripts]
 dungeon-server = "dungeon.server:main"
 dungeon-client = "dungeon.client:main"
+dungeon-gui = "dungeon.client_gui:main"
+dungeon-textual = "dungeon.client_textual:cli_main"
 
-[tool.hatch.build.targets.sdist]
-include = ["src/dungeon"]
-
-[tool.hatch.build.targets.wheel]
-include = ["src/dungeon"]
-
-[tool.hatch.build.targets.wheel.sources]
-"src/dungeon" = "dungeon"
 
 [build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"

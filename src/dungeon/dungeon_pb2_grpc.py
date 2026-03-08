@@ -85,6 +85,46 @@ class DungeonServiceStub(object):
                 request_serializer=dungeon__pb2.AttackNPCRequest.SerializeToString,
                 response_deserializer=dungeon__pb2.AttackNPCResponse.FromString,
                 _registered_method=True)
+        self.OpenChest = channel.unary_unary(
+                '/dungeon.DungeonService/OpenChest',
+                request_serializer=dungeon__pb2.OpenChestRequest.SerializeToString,
+                response_deserializer=dungeon__pb2.OpenChestResponse.FromString,
+                _registered_method=True)
+        self.CloseChest = channel.unary_unary(
+                '/dungeon.DungeonService/CloseChest',
+                request_serializer=dungeon__pb2.CloseChestRequest.SerializeToString,
+                response_deserializer=dungeon__pb2.CloseChestResponse.FromString,
+                _registered_method=True)
+        self.PutInChest = channel.unary_unary(
+                '/dungeon.DungeonService/PutInChest',
+                request_serializer=dungeon__pb2.PutInChestRequest.SerializeToString,
+                response_deserializer=dungeon__pb2.PutInChestResponse.FromString,
+                _registered_method=True)
+        self.GetFromChest = channel.unary_unary(
+                '/dungeon.DungeonService/GetFromChest',
+                request_serializer=dungeon__pb2.GetFromChestRequest.SerializeToString,
+                response_deserializer=dungeon__pb2.GetFromChestResponse.FromString,
+                _registered_method=True)
+        self.InspectChest = channel.unary_unary(
+                '/dungeon.DungeonService/InspectChest',
+                request_serializer=dungeon__pb2.InspectChestRequest.SerializeToString,
+                response_deserializer=dungeon__pb2.InspectChestResponse.FromString,
+                _registered_method=True)
+        self.ReadScroll = channel.unary_unary(
+                '/dungeon.DungeonService/ReadScroll',
+                request_serializer=dungeon__pb2.ReadScrollRequest.SerializeToString,
+                response_deserializer=dungeon__pb2.ReadScrollResponse.FromString,
+                _registered_method=True)
+        self.CastSpell = channel.unary_unary(
+                '/dungeon.DungeonService/CastSpell',
+                request_serializer=dungeon__pb2.CastSpellRequest.SerializeToString,
+                response_deserializer=dungeon__pb2.CastSpellResponse.FromString,
+                _registered_method=True)
+        self.ListSpellbook = channel.unary_unary(
+                '/dungeon.DungeonService/ListSpellbook',
+                request_serializer=dungeon__pb2.ListSpellbookRequest.SerializeToString,
+                response_deserializer=dungeon__pb2.ListSpellbookResponse.FromString,
+                _registered_method=True)
         self.SendDirectMessage = channel.unary_unary(
                 '/dungeon.DungeonService/SendDirectMessage',
                 request_serializer=dungeon__pb2.SendDirectMessageRequest.SerializeToString,
@@ -179,6 +219,56 @@ class DungeonServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def OpenChest(self, request, context):
+        """Kisten/Container
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def CloseChest(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def PutInChest(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetFromChest(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def InspectChest(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ReadScroll(self, request, context):
+        """Magie System
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def CastSpell(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ListSpellbook(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def SendDirectMessage(self, request, context):
         """Messaging
         """
@@ -263,6 +353,46 @@ def add_DungeonServiceServicer_to_server(servicer, server):
                     servicer.AttackNPC,
                     request_deserializer=dungeon__pb2.AttackNPCRequest.FromString,
                     response_serializer=dungeon__pb2.AttackNPCResponse.SerializeToString,
+            ),
+            'OpenChest': grpc.unary_unary_rpc_method_handler(
+                    servicer.OpenChest,
+                    request_deserializer=dungeon__pb2.OpenChestRequest.FromString,
+                    response_serializer=dungeon__pb2.OpenChestResponse.SerializeToString,
+            ),
+            'CloseChest': grpc.unary_unary_rpc_method_handler(
+                    servicer.CloseChest,
+                    request_deserializer=dungeon__pb2.CloseChestRequest.FromString,
+                    response_serializer=dungeon__pb2.CloseChestResponse.SerializeToString,
+            ),
+            'PutInChest': grpc.unary_unary_rpc_method_handler(
+                    servicer.PutInChest,
+                    request_deserializer=dungeon__pb2.PutInChestRequest.FromString,
+                    response_serializer=dungeon__pb2.PutInChestResponse.SerializeToString,
+            ),
+            'GetFromChest': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetFromChest,
+                    request_deserializer=dungeon__pb2.GetFromChestRequest.FromString,
+                    response_serializer=dungeon__pb2.GetFromChestResponse.SerializeToString,
+            ),
+            'InspectChest': grpc.unary_unary_rpc_method_handler(
+                    servicer.InspectChest,
+                    request_deserializer=dungeon__pb2.InspectChestRequest.FromString,
+                    response_serializer=dungeon__pb2.InspectChestResponse.SerializeToString,
+            ),
+            'ReadScroll': grpc.unary_unary_rpc_method_handler(
+                    servicer.ReadScroll,
+                    request_deserializer=dungeon__pb2.ReadScrollRequest.FromString,
+                    response_serializer=dungeon__pb2.ReadScrollResponse.SerializeToString,
+            ),
+            'CastSpell': grpc.unary_unary_rpc_method_handler(
+                    servicer.CastSpell,
+                    request_deserializer=dungeon__pb2.CastSpellRequest.FromString,
+                    response_serializer=dungeon__pb2.CastSpellResponse.SerializeToString,
+            ),
+            'ListSpellbook': grpc.unary_unary_rpc_method_handler(
+                    servicer.ListSpellbook,
+                    request_deserializer=dungeon__pb2.ListSpellbookRequest.FromString,
+                    response_serializer=dungeon__pb2.ListSpellbookResponse.SerializeToString,
             ),
             'SendDirectMessage': grpc.unary_unary_rpc_method_handler(
                     servicer.SendDirectMessage,
@@ -561,6 +691,222 @@ class DungeonService(object):
             '/dungeon.DungeonService/AttackNPC',
             dungeon__pb2.AttackNPCRequest.SerializeToString,
             dungeon__pb2.AttackNPCResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def OpenChest(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/dungeon.DungeonService/OpenChest',
+            dungeon__pb2.OpenChestRequest.SerializeToString,
+            dungeon__pb2.OpenChestResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def CloseChest(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/dungeon.DungeonService/CloseChest',
+            dungeon__pb2.CloseChestRequest.SerializeToString,
+            dungeon__pb2.CloseChestResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def PutInChest(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/dungeon.DungeonService/PutInChest',
+            dungeon__pb2.PutInChestRequest.SerializeToString,
+            dungeon__pb2.PutInChestResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GetFromChest(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/dungeon.DungeonService/GetFromChest',
+            dungeon__pb2.GetFromChestRequest.SerializeToString,
+            dungeon__pb2.GetFromChestResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def InspectChest(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/dungeon.DungeonService/InspectChest',
+            dungeon__pb2.InspectChestRequest.SerializeToString,
+            dungeon__pb2.InspectChestResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def ReadScroll(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/dungeon.DungeonService/ReadScroll',
+            dungeon__pb2.ReadScrollRequest.SerializeToString,
+            dungeon__pb2.ReadScrollResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def CastSpell(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/dungeon.DungeonService/CastSpell',
+            dungeon__pb2.CastSpellRequest.SerializeToString,
+            dungeon__pb2.CastSpellResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def ListSpellbook(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/dungeon.DungeonService/ListSpellbook',
+            dungeon__pb2.ListSpellbookRequest.SerializeToString,
+            dungeon__pb2.ListSpellbookResponse.FromString,
             options,
             channel_credentials,
             insecure,

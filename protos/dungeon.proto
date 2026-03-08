@@ -20,6 +20,18 @@ service DungeonService {
     rpc TalkToNPC(TalkToNPCRequest) returns (TalkToNPCResponse);
     rpc AttackNPC(AttackNPCRequest) returns (AttackNPCResponse);
 
+    // Kisten/Container
+    rpc OpenChest(OpenChestRequest) returns (OpenChestResponse);
+    rpc CloseChest(CloseChestRequest) returns (CloseChestResponse);
+    rpc PutInChest(PutInChestRequest) returns (PutInChestResponse);
+    rpc GetFromChest(GetFromChestRequest) returns (GetFromChestResponse);
+    rpc InspectChest(InspectChestRequest) returns (InspectChestResponse);
+
+    // Magie System
+    rpc ReadScroll(ReadScrollRequest) returns (ReadScrollResponse);
+    rpc CastSpell(CastSpellRequest) returns (CastSpellResponse);
+    rpc ListSpellbook(ListSpellbookRequest) returns (ListSpellbookResponse);
+
     // Messaging
     rpc SendDirectMessage(SendDirectMessageRequest) returns (SendMessageResponse);
     rpc SendRoomMessage(SendRoomMessageRequest) returns (SendMessageResponse);
@@ -33,6 +45,7 @@ service DungeonService {
 // Messages
 message RegisterPlayerRequest {
     string player_name = 1;
+    string password = 2;
 }
 
 message RegisterPlayerResponse {
@@ -71,6 +84,7 @@ message PlayerInfo {
     string current_room_id = 3;
     int32 health = 4;
     repeated Item inventory = 5;
+    int32 magic = 6;
 }
 
 message GetRoomInfoRequest {
@@ -85,6 +99,7 @@ message RoomInfo {
     repeated Item items = 5;
     repeated NPC npcs = 6;
     repeated string players = 7;  // Namen anderer Spieler
+    repeated Chest chests = 8;  // Kisten im Raum
 }
 
 message LookAroundRequest {
@@ -154,6 +169,12 @@ message GameEvent {
         DIRECT_MESSAGE = 7;
         ROOM_MESSAGE = 8;
         BROADCAST_MESSAGE = 9;
+        CHEST_OPENED = 10;
+        CHEST_CLOSED = 11;
+        ITEM_PUT_IN_CHEST = 12;
+        ITEM_TAKEN_FROM_CHEST = 13;
+        SPELL_LEARNED = 14;
+        SPELL_CAST = 15;
     }
 
     EventType event_type = 1;
@@ -214,4 +235,107 @@ message NPC {
     int32 health = 4;
     bool is_hostile = 5;
     string dialogue = 6;
+    int32 magic = 7;
+}
+
+message Chest {
+    string chest_id = 1;
+    string name = 2;
+    string description = 3;
+    bool is_open = 4;
+    repeated Item items = 5;
+}
+
+// Chest Operations
+message OpenChestRequest {
+    string player_id = 1;
+    string chest_name = 2;
+}
+
+message OpenChestResponse {
+    bool success = 1;
+    string message = 2;
+}
+
+message CloseChestRequest {
+    string player_id = 1;
+    string chest_name = 2;
+}
+
+message CloseChestResponse {
+    bool success = 1;
+    string message = 2;
+}
+
+message PutInChestRequest {
+    string player_id = 1;
+    string item_name = 2;
+    string chest_name = 3;
+}
+
+message PutInChestResponse {
+    bool success = 1;
+    string message = 2;
+}
+
+message GetFromChestRequest {
+    string player_id = 1;
+    string item_name = 2;
+    string chest_name = 3;
+}
+
+message GetFromChestResponse {
+    bool success = 1;
+    string message = 2;
+}
+
+message InspectChestRequest {
+    string player_id = 1;
+    string chest_name = 2;
+}
+
+message InspectChestResponse {
+    bool success = 1;
+    string message = 2;
+    Chest chest = 3;
+}
+
+// Magie System Messages
+message ReadScrollRequest {
+    string player_id = 1;
+    string item_name = 2;
+}
+
+message ReadScrollResponse {
+    bool success = 1;
+    string message = 2;
+}
+
+message CastSpellRequest {
+    string player_id = 1;
+    string spell_name = 2;
+    string target_id = 3;  // Optional: NPC ID für Angriffszauber
+}
+
+message CastSpellResponse {
+    bool success = 1;
+    string message = 2;
+    int32 damage_dealt = 3;
+    int32 target_health_remaining = 4;
+}
+
+message ListSpellbookRequest {
+    string player_id = 1;
+}
+
+message ListSpellbookResponse {
+    repeated Spell spells = 1;
+}
+
+message Spell {
+    string name = 1;
+    string description = 2;
+    int32 mana_cost = 3;
+    int32 damage = 4;
+    string effect_type = 5;
 }

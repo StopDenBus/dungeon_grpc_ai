@@ -5,11 +5,12 @@ Ein objektorientiertes Multi-User Dungeon Game mit asynchronem gRPC Client-Serve
 ## Features
 
 - **Objektorientiertes Design**: Player, Room, NPC, und Item Klassen
-- **Asynchrone Kommunikation**: Vollständig async/await basiert
+- **Asynchrone Kommunikation**: Vollständig async/await basiert (Server)
 - **gRPC Protocol**: Effiziente Kommunikation zwischen Client und Server
 - **Event Streaming**: Echtzeit-Updates über Spielereignisse
 - **Multi-User Support**: Mehrere Spieler können gleichzeitig spielen
 - **Chat-System**: Direkte Nachrichten, Raum-Chat und Broadcasts
+- **Moderne Terminal-UI**: Zweigeteiltes Layout mit prompt-toolkit
 
 ## Installation
 
@@ -49,6 +50,16 @@ In einem neuen Terminal:
 ```bash
 poetry run dungeon-client
 ```
+
+Der Client öffnet sich in einem modernen Terminal-UI mit:
+- **Output-Bereich** (oben): Zeigt Spielausgaben, Events und Nachrichten
+- **Input-Bereich** (unten): Für Kommandoeingabe mit Suchfunktion (Ctrl+R)
+- **Info-Bar**: Tastenkombinationen
+
+**Steuerung:**
+- `Enter`: Kommando senden
+- `Ctrl+C`: Client beenden
+- `Ctrl+R`: Suche in Input-Historie
 
 ## Spielkommandos
 
@@ -95,9 +106,12 @@ poetry run dungeon-client
 - Event Streaming für Echtzeit-Updates
 
 ### gRPC Client ([client.py](src/dungeon/client.py))
-- Interaktive Kommandozeilen-Anwendung
-- Async Event Handling
-- Formatierte Ausgabe von Räumen und Objekten
+- Moderne Terminal-UI mit prompt-toolkit
+- Zweigeteiltes Layout: Output-Bereich (oben) und Input-Bereich (unten)
+- Synchroner gRPC Client mit Threading für Event Stream
+- SearchToolbar für Input-Suche
+- Echtzeit-Updates im Output-Bereich
+- Dark Theme mit Farbcodierung
 
 ### Protocol Buffers ([dungeon.proto](protos/dungeon.proto))
 - Service Definition
@@ -108,8 +122,10 @@ poetry run dungeon-client
 
 - Python 3.13+
 - gRPC & Protocol Buffers
+- prompt-toolkit für Terminal-UI
 - Poetry für Dependency Management
-- Async/Await für Concurrency
+- Async/Await für Server Concurrency
+- Threading für Client Event Handling
 
 ## Multi-User Beispiel
 
